@@ -136,7 +136,7 @@ function renderProgressBar(pokemonJson, propertyID, color) {
 
     let progressBarHtml = /*html*/ `
     <div class="progress" style="height: 15px">
-        <div class="progress-bar-striped bg-${color} fw-bold text-light ps-2 pb-4" role="progressbar" aria-label="Example 1px high" style="width: ${propertyProgressValue}%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="255">${propertyValue}</div>
+        <div class="progress-bar-striped bg-${color} text-light ps-2 fs-6 d-flex align-items-center" role="progressbar" aria-label="Example 1px high" style="width: ${propertyProgressValue}%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="255">${propertyValue}</div>
     </div>
     `;
 

@@ -1,6 +1,7 @@
 /* Basic */
 
 body {
+    font-family: 'Acme' !important;
     background-color: rgb(224, 63, 63) !important;
     position: relative;
     display: flex;
@@ -16,7 +17,6 @@ header {
 }
 
 h1 {
-    font-family: 'Acme' !important;
     font-size: 75px !important;
     color: rgb(189, 189, 14);
 }
@@ -42,6 +42,10 @@ header a {
 header a:hover {
     font-style: unset;
 
+}
+
+header>div>span {
+    letter-spacing: 3px;
 }
 
 
@@ -167,7 +171,7 @@ button {
     width: 450px !important;
     position: relative;
     background-color: unset;
-
+    border: unset;
 }
 
 #cardHead {
@@ -287,7 +291,9 @@ button {
     color: rgb(214, 214, 216);
 }
 
-@media only screen and (max-width: 1700px) {}
+.progress>div {
+    
+}
 
 @media only screen and (max-width: 1220px) {
     header {
