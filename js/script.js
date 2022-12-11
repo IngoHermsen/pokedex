@@ -23,6 +23,14 @@ function stopPropagation(event) {
 };
 
 
+async function initSearchOnEnterEvent() {
+    let searchInputElement = document.getElementById('search');
+    searchInputElement.addEventListener('keyup', e => {
+        if (e.key === 'Enter') { search() };
+    });
+};
+
+
 function initLoadOnScroll() {
     window.addEventListener('scroll', async () => {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !loading) {
@@ -49,6 +57,16 @@ async function fillIDArrayFromMainJson() {
         let currentPokemonUrl = mainJson['results'][i]['url'];
         let currentPokemonJson = await getPokemonAsJson(slicePokemonIDfromUrl(currentPokemonUrl));
         indexesOfCurrentSelection.push(currentPokemonJson['id']);
+    };
+};
+
+
+function fillIDArrayWithMatches(searchInputElement) {
+    for (let i = 0; i < mainJson['results'].length; i++) {
+        if (mainJson['results'][i]['name'].includes(searchInputElement.value.trim().toLowerCase())) {
+            let pokemonID = slicePokemonIDfromUrl(mainJson['results'][i]['url']);
+            indexesOfCurrentSelection.push(pokemonID);
+        };
     };
 };
 
@@ -151,14 +169,6 @@ function getTypeColor(type) {
 };
 
 
-async function initSearchOnEnterEvent() {
-    let searchInputElement = document.getElementById('search');
-    searchInputElement.addEventListener('keyup', e => {
-        if (e.key === 'Enter') { search() };
-    });
-};
-
-
 async function search() {
     let searchInputElement = document.getElementById('search');
     if (searchInputElement.value.trim().length == 0) {
@@ -176,6 +186,7 @@ async function search() {
 
 };
 
+
 function resetOffsetAndActiveSearchVariables() {
     let renderResultInfoTextElement = document.getElementById('resultInfoText')
     renderResultInfoTextElement.innerHTML = "";
@@ -183,6 +194,7 @@ function resetOffsetAndActiveSearchVariables() {
     activeSearchFilter = false;
 
 };
+
 
 function renderResultInfoTextElement(searchInputElement) {
     let renderResultInfoTextElement = document.getElementById('resultInfoText');
@@ -193,27 +205,18 @@ function renderResultInfoTextElement(searchInputElement) {
         Sorry, no matches for "<div>${searchInputElement.value}</div>"`
         } else {
             renderResultInfoTextElement.innerHTML = /*html*/ `
-            <div>We found ${indexesLength} ${getMatchFoundText(indexesLength)} for&nbsp</div><div>"${searchInputElement.value}:  "</div>`
+            <div>We found ${indexesLength} ${setMatchFoundText(indexesLength)} for&nbsp</div><div>"${searchInputElement.value}"&nbsp:</div>`
         };
         searchInputElement.value = '';
     };
 };
 
-function getMatchFoundText(matchesAmount) {
+
+function setMatchFoundText(matchesAmount) {
     if(matchesAmount == 1) {
         return 'match';
     } else {
         return 'matches';
-    };
-};
-
-
-function fillIDArrayWithMatches(searchInputElement) {
-    for (let i = 0; i < mainJson['results'].length; i++) {
-        if (mainJson['results'][i]['name'].includes(searchInputElement.value.trim().toLowerCase())) {
-            let pokemonID = slicePokemonIDfromUrl(mainJson['results'][i]['url']);
-            indexesOfCurrentSelection.push(pokemonID);
-        };
     };
 };
 

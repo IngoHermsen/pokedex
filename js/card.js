@@ -41,7 +41,7 @@ function renderCardHead(artworkPath, pokemonName, pokemonID, lastTypeName) {
 
 function renderCardBody(pokemonID) {
     return /*html*/ `
-    <div class="pt-2 px-5 card-body">
+    <div class="card-body">
         <nav class="mb-4 d-flex justify-content-between">
             <a tabindex="0" id="about" class="text-left stats mx-3" onclick="renderAboutStats(${pokemonID})">About</a>
             <a tabindex="1" id="baseStats" class="stats mx-3" onclick="renderBaseStats(${pokemonID})">Base Stats</a>
@@ -52,12 +52,6 @@ function renderCardBody(pokemonID) {
         </div>
     </div>
     `
-};
-
-
-function focusAboutStats() {
-    let aboutTextElement = document.getElementById('about');
-    aboutTextElement.focus();
 };
 
 
@@ -74,9 +68,9 @@ async function renderAboutStats(pokemonID) {
     cardStatContentElement.innerHTML = /*html*/ `
     <table id="aboutTable">
         <tr><td >Types:</td>
-            <td id="typesList">${getTypesHtml(pokemonJson)}</td></tr>
+            <td id="typesList">${generateTypesHtml(pokemonJson)}</td></tr>
         <tr><td>Abilities:</td>
-            <td id="abilitiesList">${getAbilitiesHtml(pokemonJson)}</td></tr>
+            <td id="abilitiesList">${generateAbilitiesHtml(pokemonJson)}</td></tr>
         <tr><td>Height:</td>
             <td id="height">${(pokemonJson['height'] / 10).toFixed(2)} m</td></tr>
         <tr><td>Weight:</td>
@@ -86,8 +80,13 @@ async function renderAboutStats(pokemonID) {
 };
 
 
+function focusAboutStats() {
+    let aboutTextElement = document.getElementById('about');
+    aboutTextElement.focus();
+};
 
-function getTypesHtml(pokemonJson) {
+
+function generateTypesHtml(pokemonJson) {
     let typesHtml = "";
     for (let i = 0; i < pokemonJson['types'].length; i++) {
         typesHtml += `<span class="properties py-1 px-2">${pokemonJson['types'][i]['type']['name']}</span>`;
@@ -97,7 +96,7 @@ function getTypesHtml(pokemonJson) {
 };
 
 
-function getAbilitiesHtml(pokemonJson) {
+function generateAbilitiesHtml(pokemonJson) {
     let abilitiesHtml = "";
     for (let i = 0; i < pokemonJson['abilities'].length; i++) {
         abilitiesHtml += `<span class="properties py-1 px-2">${pokemonJson['abilities'][i]['ability']['name']}</span>`;
@@ -151,13 +150,13 @@ async function renderMovesStats(pokemonID) {
 
     cardStatContentElement.innerHTML = /*html*/ `
     <div class="movesWrapper">
-        ${getMovesHtml(pokemonJson)}
+        ${generateMovesHtml(pokemonJson)}
     </div>
     `
-    };
+};
 
 
-function getMovesHtml(pokemonJson) {
+function generateMovesHtml(pokemonJson) {
     let movesHtml = "";
     for (let i = 0; i < pokemonJson['moves'].length; i++) {
         movesHtml += `<div class="properties px-2 py-1 d-inline-block">${pokemonJson['moves'][i]['move']['name']}</div>`
