@@ -31,7 +31,7 @@ function renderCardHead(artworkPath, pokemonName, pokemonID, lastTypeName) {
     <div id=cardHead class="d-flex flex-column ps-3 pt-3 text-light" style="background-color: rgba(${getTypeColor(lastTypeName)})">
         <i class="closeButton fs-2 fa-regular fa-circle-xmark" onclick="closeOverlay()"></i>
         <img src="${artworkPath}" alt="officialArtwork">
-        <div class="d-flex align-items-center justify-content-between me-5">
+        <div class="d-flex align-items-center justify-content-between me-3">
         <h2 class="fs-1 card-title">${pokemonName}</h2>
         <h3 class="fs-3">${generateId(pokemonID)}</h3></div>
     </div>
